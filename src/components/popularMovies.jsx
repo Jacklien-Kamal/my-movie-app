@@ -61,7 +61,7 @@ function PopularMovies() {
   useEffect(() => {
     const updateMoviesPerPage = () => {
       if (window.innerWidth < 768) {
-        setMoviesPerPage(2);
+        setMoviesPerPage(4);
       } else {
         setMoviesPerPage(4);
       }
@@ -89,16 +89,16 @@ function PopularMovies() {
             className="swiper-button-prev m carousel-control-prev"
             data-bs-target="#movieCarousel"
             data-bs-slide="prev"
-            style={{ fontSize: '30px' }} // Style for button size
+             // Style for button size
           >
-            <GrPrevious size={40} /> {/* Increase the size here */}
+            <GrPrevious   /> {/* Increase the size here */}
           </button>
           <button
           
             className="swiper-button-next carousel-control-next m-0"
             data-bs-target="#movieCarousel"
             data-bs-slide="next"
-            style={{ fontSize: '30px' }} // Style for button size
+           // Style for button size
           >
             <GrNext /> {/* Increase the size here */}
           </button>
@@ -110,7 +110,7 @@ function PopularMovies() {
             <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
               <div className="row">
                 {movieChunk.map((movie) => (
-                  <div className="col-6 col-md-4 col-lg-3" key={movie.id}>
+                  <div className="col-3 col-md-4 col-lg-3 ps-0 pe-2" key={movie.id}>
                     <div className="movie-box">
                       <img
                         src={movie.imgSrc}
