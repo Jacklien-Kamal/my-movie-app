@@ -94,4 +94,4 @@ function JumanjiPage() {
   );
 }
 
-export default JumanjiPage;
+export default JumanjiPage; 

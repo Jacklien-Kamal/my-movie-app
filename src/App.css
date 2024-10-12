@@ -7,6 +7,28 @@
   box-sizing: border-box;
   scroll-padding-top: 2rem;
 }
+  
+h1 {
+    color: #333;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  input {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
 :root {
   --main-color: #ffb43a;
   --hover-color: hsl(37, 94%, 57%);
@@ -298,6 +320,22 @@ header {
 
 .watch-btn {
   position: absolute;
+  top: 90%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  border-radius: 50%;
+}
+#home .watch-btn {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  border-radius: 50%;
+}
+.all-vid .watch-btn , .profile .watch-btn {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -389,6 +427,11 @@ header {
   background: var(--main-color);
   font-size: 24px;
   animation: animate 2s linear infinite;
+}
+#uploadedMovies{
+  padding-left: 130px;
+  padding-right: 130px;
+
 }
 @keyframes animate {
   0% {
@@ -513,7 +556,7 @@ header {
 
 .login,
 .signup {
-  margin-top: 100px;
+  margin-top: 250px;
 }
 .admin-controls {
   margin-left: 100px;
@@ -643,6 +686,10 @@ header {
       1fr
     ); /* 2 movies side by side on smaller screens */
   }
+  .login,
+.signup {
+  margin-top: 300px;
+}
 }
 
 @media (max-width: 480px) {
@@ -741,7 +788,7 @@ header {
   .navbar a,
   .navbar .bx {
     padding: 1px;
-    font-size: 18px;
+    font-size: 11px;
   }
   .navbar a span {
     font-size: 5px;
@@ -799,5 +846,15 @@ header {
     font-size: 9px;
     margin: 0px;
   }
-
+.delete{
+  width: 33px;
+  height: 13px;
+  font-size: 7px;
+  padding: 0px;
+  align-items: center;
 }
+}
+
+
+/* src/styles.css */
+
