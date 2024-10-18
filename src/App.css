@@ -232,7 +232,7 @@ header {
 }
 .movie-box-img {
   width: 100%;
-  height:380px;
+  height:380px  ;
   object-fit: cover;
 }
 .movie-box .box-text {
@@ -569,11 +569,10 @@ header {
 }
 
 .category-dropdown select {
-  padding: 8px 18px;
+  padding: 8px 19px;
   background-color: #0b0b0b;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
+  border: none;
+  font-size: 15px;
   color:var(--main-color);
   cursor: pointer;
   appearance: none; /* Removes the default dropdown arrow */
