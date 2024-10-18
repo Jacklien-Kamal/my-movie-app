@@ -43,7 +43,6 @@ const route=useNavigate()
       const storageRef = ref(storage, `images/${imageFile.name}`);
       await uploadBytes(storageRef, imageFile);
 
-      const downloadURL = await getDownloadURL(storageRef);
 
       const movieData = {
         title,

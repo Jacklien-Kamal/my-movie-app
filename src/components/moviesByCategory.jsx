@@ -3,7 +3,6 @@ import { RiPlayLargeLine } from "react-icons/ri";
 import { db } from "../auth/firebase"; // Firebase configuration
 import { collection, getDocs, query, where } from "firebase/firestore"; // Firestore methods
 import { useNavigate } from "react-router-dom"; // For navigation
-import { IoMdDownload } from "react-icons/io";
 
 function MoviesByCategory() {
   const [categories, setCategories] = useState([]);
@@ -84,13 +83,7 @@ function MoviesByCategory() {
                         className="movie-box-img d-block w-100"
                         alt={movie.title}
                       />
-                      <button
-                        onClick={() => handleDownload(movie)}
-                        className="btn btn-warning position-absolute top-0 end-0 m-2 p-1 download" // Styles for positioning the button
-                        title="Download"
-                      >
-                        <IoMdDownload /> {/* Icon for download */}
-                      </button>
+                   
                       <div className="box-text">
                         <h2 className="movie-title">{movie.title}</h2>
                         <span className="movie-type">{movie.type}</span>

@@ -82,13 +82,7 @@ const YourMovies = () => {
           userMovies.map((movie) => (
             <div className="movie-box position-relative" key={movie.id}>
               <img src={movie.image} alt={movie.title} className="movie-box-img" />
-              <button
-                onClick={() => handleDownload(movie)}
-                className="btn btn-warning position-absolute top-0 end-0 m-2 p-1 download" // Styles for positioning the button
-                title="Download"
-              >
-                <IoMdDownload /> {/* Icon for download */}
-              </button>
+             
               <div className="box-text">
                 <h2 className="movie-title">{movie.title}</h2>
                 <a href={movie.url} target="_blank" rel="noopener noreferrer" className="watch-btn">
