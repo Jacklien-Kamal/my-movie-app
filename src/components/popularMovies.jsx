@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowForward, IoMdDownload } from 'react-icons/io';
 import { GrPrevious } from 'react-icons/gr';
 import { RiPlayLargeLine } from 'react-icons/ri';
 import { GrNext } from "react-icons/gr";
@@ -117,6 +117,13 @@ function PopularMovies() {
                         className="movie-box-img d-block w-100"
                         alt={movie.title}
                       />
+                         <button
+                onClick={() => handleDownload(movie)}
+                className="btn btn-warning position-absolute top-0 end-0 m-2 p-1 download" // Styles for positioning the button
+                title="Download"
+              >
+                <IoMdDownload /> {/* Icon for download */}
+              </button>
                       <div className="box-text">
                         <h2 className="movie-title">{movie.title}</h2>
                         <span className="movie-type">{movie.type}</span>

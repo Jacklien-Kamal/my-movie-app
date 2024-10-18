@@ -3,6 +3,7 @@ import { RiPlayLargeLine } from "react-icons/ri";
 import { collection, getDocs, doc, updateDoc, deleteDoc, getDoc } from "firebase/firestore"; // Firestore functions
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Firebase Storage functions
 import { db, storage, auth } from '../auth/firebase'; // Adjust the import path for Firebase config
+import MovieCard from "./movieCard";
 
 function MoviesPage() {
   const [movies, setMovies] = useState([]); // State to hold fetched movies
@@ -154,26 +155,7 @@ function MoviesPage() {
                   <button className="btn btn-secondary" onClick={() => setEditMode(null)}>Cancel</button>
                 </div>
               ) : (
-                <div  className="movie-box">
-                  <img src={movie.image} alt={movie.title} className="movie-box-img" /> {/* Ensure 'image' matches your Firestore field name */}
-                  <div className="box-text">
-                    <h2 className="movie-title">{movie.title}</h2>
-                    <span className="movie-type">{movie.type}</span>
-                    <a href={movie.url} className="watch-btn"> {/* Ensure 'url' matches your Firestore field name */}
-                      <RiPlayLargeLine className='bx' />
-                    </a>
-                    <div className="mt-2">
-                      {isAdmin ? ( // Only show buttons if the user is admin
-                        <>
-                          <button className="btn btn-warning me-2" onClick={() => handleEditClick(movie)}>Edit</button>
-                          <button className="btn btn-danger delete" onClick={() => handleDelete(movie.id)}>Delete</button>
-                        </>
-                      ) : (
-                        <p></p> // Message for non-admin users
-                      )}
-                    </div>
-                  </div>
-                </div>
+                <MovieCard  movie={movie} handleDelete={handleDelete} handleEditClick={handleEditClick} isAdmin={isAdmin}/>
               )}
             </div>
           ))

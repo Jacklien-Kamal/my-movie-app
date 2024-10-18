@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../auth/firebase'; // Ensure 'db' is the Firestore instance
 import { collection, query, where, getDocs, deleteDoc, doc, getDoc } from 'firebase/firestore'; // Firestore functions
-import { RiPlayLargeLine } from "react-icons/ri"; // Import the play icon for consistency
+import { RiPlayLargeLine, RiArrowDownSLine } from "react-icons/ri"; // Import the play and download icons
 import { onAuthStateChanged } from "firebase/auth"; // Import the method
 import { FaPlus } from "react-icons/fa";
+import { IoMdDownload } from "react-icons/io";
 
 const YourMovies = () => {
   const [userMovies, setUserMovies] = useState([]);
@@ -63,6 +64,14 @@ const YourMovies = () => {
     console.log('Navigate to edit page for movie with ID:', movieId);
   };
 
+  const handleDownload = (movie) => {
+    // Implement your download logic here
+    const downloadUrl = movie.downloadUrl; // Ensure you have a 'downloadUrl' field in your movie object
+    if (downloadUrl) {
+      window.open(downloadUrl, '_blank');
+    }
+  };
+
   return (
     <section className="movies container mt-5 profile" id="uploadedMovies">
       <div className="heading">
@@ -71,8 +80,15 @@ const YourMovies = () => {
       <div className="movies-content">
         {userMovies.length > 0 ? (
           userMovies.map((movie) => (
-            <div className="movie-box" key={movie.id}>
+            <div className="movie-box position-relative" key={movie.id}>
               <img src={movie.image} alt={movie.title} className="movie-box-img" />
+              <button
+                onClick={() => handleDownload(movie)}
+                className="btn btn-warning position-absolute top-0 end-0 m-2 p-1 download" // Styles for positioning the button
+                title="Download"
+              >
+                <IoMdDownload /> {/* Icon for download */}
+              </button>
               <div className="box-text">
                 <h2 className="movie-title">{movie.title}</h2>
                 <a href={movie.url} target="_blank" rel="noopener noreferrer" className="watch-btn">
