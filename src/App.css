@@ -232,7 +232,7 @@ header {
 }
 .movie-box-img {
   width: 100%;
-  height: 100%;
+  height:380px;
   object-fit: cover;
 }
 .movie-box .box-text {
@@ -560,6 +560,55 @@ header {
 }
 .admin-controls {
   margin-left: 100px;
+}
+.category-dropdown {
+  position: relative;
+  margin-left: 23px;
+  margin-right: 23px;
+
+}
+
+.category-dropdown select {
+  padding: 8px 18px;
+  background-color: #0b0b0b;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  color:var(--main-color);
+  cursor: pointer;
+  appearance: none; /* Removes the default dropdown arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+}
+
+.category-dropdown select:focus {
+  outline: none;
+  border-color: var(--main-color); /* Focus border color */
+  box-shadow: 0 0 5px rgba(113, 141, 170, 0.5); /* Optional shadow effect */
+}
+
+.category-dropdown::after {
+  content: "▼";
+  font-size: 12px;
+  color:var(--main-color);
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevents click interference with the dropdown */
+}
+
+.category-dropdown select:hover {
+  background-color: #636363;
+}
+
+.category-dropdown select option {
+  background-color: rgb(88, 76, 76);
+  color:var(--main-color)
+}
+.option:hover {
+  color: magenta;
+  background-color: rgb(228, 28, 28);
 }
 
 /* Responsive */

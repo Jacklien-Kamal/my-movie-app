@@ -7,22 +7,37 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { CgSearch } from "react-icons/cg";
 import { auth } from "../auth/firebase"; // Import your Firebase auth
-import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
+import { doc, getDoc, collection, getDocs } from "firebase/firestore"; // Import Firestore functions
 import { db } from "../auth/firebase"; // Import your Firestore database
+import { useNavigate } from "react-router-dom"; // For navigation
 
 function Header() {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null); // State for user role
+  const [categories, setCategories] = useState([]); // State for categories
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Fetch categories from Firestore
+    const fetchCategories = async () => {
+      const categoriesCollection = collection(db, "categories");
+      const categoriesSnapshot = await getDocs(categoriesCollection);
+      const categoriesList = categoriesSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        name: doc.data().name,
+      }));
+      setCategories(categoriesList);
+    };
+
+    // Fetch user authentication state and role
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         setUser(user.email.split("@")[0]); // Display part before @gmail.com
 
         // Fetch user role from Firestore
-        const userDoc = await getDoc(doc(db, "users", user.uid)); // Use user.uid to get the document
+        const userDoc = await getDoc(doc(db, "users", user.uid));
         if (userDoc.exists()) {
-          setRole(userDoc.data().role); // Assuming the role is stored under the 'role' field
+          setRole(userDoc.data().role);
         } else {
           setRole(null); // User does not exist in Firestore
         }
@@ -31,6 +46,8 @@ function Header() {
         setRole(null); // Reset role when user is not logged in
       }
     });
+
+    fetchCategories(); // Fetch categories when component mounts
 
     return () => unsubscribe();
   }, []);
@@ -41,12 +58,17 @@ function Header() {
     setRole(null); // Reset role on logout
   };
 
+  const handleCategorySelect = (categoryId) => {
+    navigate(`/category/${categoryId}`); // Navigate to category page
+  };
+
   return (
     <header>
       <div className="nav container">
         <a href="/" className="logo">
           TO<span>D</span>
         </a>
+
         <div className="search-box">
           <input
             type="search"
@@ -56,6 +78,19 @@ function Header() {
           />
           <CgSearch className="bx bx-search" />
         </div>
+
+        {/* Category Dropdown */}
+        <div className="category-dropdown">
+          <select onChange={(e) => handleCategorySelect(e.target.value)}>
+            <option value="">Select Category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.name} className="option">
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="user">
           {user ? (
             <>
@@ -74,6 +109,7 @@ function Header() {
             </a>
           )}
         </div>
+
         <div className="navbar">
           <a href="/" className="nav-link nav-active">
             <TbHome className="bx bx-home" />
@@ -91,16 +127,16 @@ function Header() {
             <PiTelevisionSimpleBold className="bx bx-tv" />
             <span className="nav-link-title">Movies</span>
           </a>
-          <a href="/profile" className="nav-link">
+          <a href="/your-movies" className="nav-link">
             <FaRegUserCircle className="bx bx-tv" />
-            <span className="nav-link-title">Your Videos</span>
+            <span className="nav-link-title">Your Movies</span>
           </a>
-          {user === "hlmrak67"  && ( // Corrected email comparison
-              <a href="/admin" className="nav-link">
-                <IoSettingsOutline className="bx bx-cog" />
-                <span className="nav-link-title">Admin Panel</span>
-              </a>
-            )}
+          {user === "hlmrak67" && ( // Corrected email comparison
+            <a href="/admin" className="nav-link">
+              <IoSettingsOutline className="bx bx-cog" />
+              <span className="nav-link-title">Admin Panel</span>
+            </a>
+          )}
         </div>
       </div>
     </header>

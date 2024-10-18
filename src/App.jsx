@@ -5,32 +5,35 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from "./pages/Home";
 import Footer from "./components/footer";
 import Header from "./components/header";
-import AddMovieForm from "./components/VideoForm";
+import AddMovieForm from "./components/uploadVideo";
 import MoviesPage from "./components/VideoList";
 import SignupPage from "./pages/signUp";
-import LoginPage from "./pages/login";
-import UserProfile from "./pages/user";
+
 import Login from "./pages/login";
-import VideoForm from "./components/VideoForm";
 import Admin from "./pages/admin";
+import CategoryPage from "./pages/category";
+import YourMovies from "./pages/yourMovies";
+import UploadVideo from "./components/uploadVideo";
+import ResetPassword from "./pages/resetPassword";
 
 function App() {
   return (
     <div>
       <Header />
-      <Router>
 
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/play" Component={JumanjiPage} />
         <Route path="/login" Component={Login} />
         <Route path="/signup" Component={SignupPage} />
-        <Route path="/profile" Component={UserProfile} />
-        <Route path="/upload" Component={VideoForm} />
+        <Route path="/your-movies" Component={YourMovies} />
+        <Route path="/upload" Component={UploadVideo} />
         <Route path="/all-movies" Component={MoviesPage} />
         <Route path="/admin" Component={Admin} />
+        <Route path="/category/:categoryId" element={<CategoryPage />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+
       </Routes>
-      </Router>
      
 
       <Footer  />

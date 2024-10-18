@@ -5,7 +5,7 @@ import { RiPlayLargeLine } from "react-icons/ri"; // Import the play icon for co
 import { onAuthStateChanged } from "firebase/auth"; // Import the method
 import { FaPlus } from "react-icons/fa";
 
-const UserProfile = () => {
+const YourMovies = () => {
   const [userMovies, setUserMovies] = useState([]);
   const [user, setUser] = useState(null); // State to track the logged-in user
   const [isAdmin, setIsAdmin] = useState(false); // State to track if the user is an admin
@@ -105,4 +105,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default YourMovies;

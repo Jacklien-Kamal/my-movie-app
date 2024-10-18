@@ -154,7 +154,7 @@ function MoviesPage() {
                   <button className="btn btn-secondary" onClick={() => setEditMode(null)}>Cancel</button>
                 </div>
               ) : (
-                <div>
+                <div  className="movie-box">
                   <img src={movie.image} alt={movie.title} className="movie-box-img" /> {/* Ensure 'image' matches your Firestore field name */}
                   <div className="box-text">
                     <h2 className="movie-title">{movie.title}</h2>

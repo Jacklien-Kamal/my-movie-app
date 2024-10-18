@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const VideoForm = () => {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
+  const [category, setCategory] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [error, setError] = useState(null);
   const db = getFirestore();
@@ -49,12 +50,14 @@ const route=useNavigate()
         url,
         image: downloadURL,
         userId: auth.currentUser.uid,
+        category
       };
 
       const docRef = await addDoc(collection(db, "movies"), movieData);
       console.log("Movie uploaded with ID: ", docRef.id);
       setTitle("");
       setUrl("");
+      setCategory("");
       setImageFile(null);
       route('/all-movies');
 
@@ -86,6 +89,17 @@ const route=useNavigate()
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="Enter movie URL"
+            className="form-control"
+            required
+          />
+        </div>
+        <div className="form-group my-3">
+          <label className='text-light'>Category</label>
+          <input
+            type="text"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="Enter movie Category"
             className="form-control"
             required
           />
