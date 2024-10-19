@@ -10,7 +10,7 @@ import { auth } from "../auth/firebase"; // Import your Firebase auth
 import { doc, getDoc, collection, getDocs } from "firebase/firestore"; // Import Firestore functions
 import { db } from "../auth/firebase"; // Import your Firestore database
 import { useNavigate } from "react-router-dom"; // For navigation
-import { CiCirclePlus } from "react-icons/ci";
+import { FaPlusCircle } from "react-icons/fa";
 
 function Header() {
   const [user, setUser] = useState(null);
@@ -125,7 +125,7 @@ function Header() {
             <span className="nav-link-title">Explore</span>
           </a>
           <a href="/upload" className="nav-link">
-          <CiCirclePlus className="bx bx-compass" />
+          <FaPlusCircle className="bx bx-compass text-1" />
           </a>
           <a href="/all-movies" className="nav-link">
             <PiTelevisionSimpleBold className="bx bx-tv" />
