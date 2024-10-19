@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, [auth]);
 
-  const isAdmin = user && user.email === "HLMRAK67@GMAIL.COM"; // Replace with your admin email or role check
+  const isAdmin = user && user.email === "hlmrak67@gmail.com"; // Replace with your admin email or role check
 
   return (
     <AuthContext.Provider value={{ user, loading, isAdmin }}>
