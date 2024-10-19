@@ -126,6 +126,8 @@ function Header() {
           </a>
           <a href="/upload" className="nav-link">
           <FaPlusCircle    className="bx bx-compass text-1 " />
+          <span className="nav-link-title">Upload</span>
+
           </a>
           <a href="/all-movies" className="nav-link">
             <PiTelevisionSimpleBold className="bx bx-tv" />
