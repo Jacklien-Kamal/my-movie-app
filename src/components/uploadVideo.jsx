@@ -1,13 +1,15 @@
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const VideoForm = () => {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]); // State to store categories
+
   const [imageFile, setImageFile] = useState(null);
   const [error, setError] = useState(null);
   const db = getFirestore();
@@ -15,6 +17,24 @@ const VideoForm = () => {
   const auth = getAuth();
   const route = useNavigate();
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoriesCollection = collection(db, "categories"); // Assuming you have a 'categories' collection
+        const categorySnapshot = await getDocs(categoriesCollection);
+        const categoryList = categorySnapshot.docs.map(doc => ({
+          id: doc.id,
+          name: doc.data().name // Adjust according to your category document structure
+        }));
+        setCategories(categoryList);
+      } catch (err) {
+        console.error("Error fetching categories: ", err);
+        setError("Error fetching categories: " + err.message);
+      }
+    };
+
+    fetchCategories();
+  }, [db]);
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith('image/')) {
@@ -96,14 +116,19 @@ const VideoForm = () => {
         </div>
         <div className="form-group my-3">
           <label className='text-light'>Category</label>
-          <input
-            type="text"
+          <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            placeholder="Enter movie Category"
             className="form-control"
             required
-          />
+          >
+            <option value="" disabled>Select a category</option>
+            {categories.map(cat => (
+              <option key={cat.id} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="form-group my-3">
           <label className='text-light'>Movie Image</label>
