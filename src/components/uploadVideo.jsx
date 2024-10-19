@@ -37,7 +37,7 @@ const VideoForm = () => {
   }, [db]);
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.type.startsWith('image/*')) {
+    if (file ) {
       setImageFile(file);
       setError(null); // Clear any previous errors
     } else {

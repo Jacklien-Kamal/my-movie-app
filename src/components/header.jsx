@@ -85,7 +85,7 @@ function Header() {
           <select onChange={(e) => handleCategorySelect(e.target.value)}>
             <option value="">Select Category</option>
             {categories.map((category) => (
-              <option key={category.id} value={category.name} className="option">
+              <option key={category.id} value={category.name } className="option">
                 {category.name}
               </option>
             ))}

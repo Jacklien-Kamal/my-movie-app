@@ -1,96 +1,30 @@
 // AuthContext.js
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { auth, db } from "./firebase"; // Make sure firebase is initialized correctly
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-// Create Auth Context
 const AuthContext = createContext();
 
-export const useAuth = () => useContext(AuthContext);
-
-export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userRole, setUserRole] = useState(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const auth = getAuth();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      console.log("User state changed:", user); // Debugging line
-      if (user) {
-        setCurrentUser(user);
-        const role = await getUserRole(user.uid);
-        setUserRole(role);
-      } else {
-        setCurrentUser(null);
-        setUserRole(null);
-      }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
     });
-    return unsubscribe;
-  }, []);
 
-  const signup = async (email, password) => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
+    return () => unsubscribe();
+  }, [auth]);
 
-      // Assign default role as 'user'
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        role: "user", // Default role
-        username: user.email.split("@")[0], // Use part of email as username
-      });
-
-      return user;
-    } catch (error) {
-      console.error("Signup error:", error);
-      throw error; // This allows you to handle the error in your signup component
-    }
-  };
-
-  const login = async (email, password) => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      return userCredential.user;
-    } catch (error) {
-      console.error("Login error:", error);
-      throw error; // This allows you to handle the error in your login component
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Logout error:", error);
-      throw error; // Handle logout error if necessary
-    }
-  };
-
-  const getUserRole = async (userId) => {
-    const docRef = doc(db, "users", userId);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data().role;
-    }
-    return null;
-  };
+  const isAdmin = user && user.email === "HLMRAK67@GMAIL.COM"; // Replace with your admin email or role check
 
   return (
-    <AuthContext.Provider value={{ currentUser, userRole, signup, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );
-}
-  
+};
+
+export const useAuth = () => useContext(AuthContext);

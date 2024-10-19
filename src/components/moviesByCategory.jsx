@@ -86,8 +86,8 @@ function MoviesByCategory() {
                    
                       <div className="box-text">
                         <h2 className="movie-title">{movie.title}</h2>
-                        <span className="movie-type">{movie.type}</span>
-                        <a href="#" className="watch-btn">
+                        <span className="movie-type">{movie.category}</span>
+                        <a href={movie.url} className="watch-btn">
                           <RiPlayLargeLine className="bx" />
                         </a>
                       </div>
