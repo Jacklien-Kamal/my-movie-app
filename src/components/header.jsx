@@ -125,7 +125,7 @@ function Header() {
             <span className="nav-link-title">Explore</span>
           </a>
           <a href="/upload" className="nav-link">
-          <FaPlusCircle className="bx bx-compass text-1" />
+          <FaPlusCircle    className="bx bx-compass text-1 " />
           </a>
           <a href="/all-movies" className="nav-link">
             <PiTelevisionSimpleBold className="bx bx-tv" />
